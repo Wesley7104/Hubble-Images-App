@@ -19,11 +19,11 @@
   
 	let isOpen = false;
 	const toggle = () => (isOpen = !isOpen);
-	const apiURL = "https://hubblesite.org/api/v3/images/all?page=1";
+	const apiURL = "https://hubblesite.org/api/v3/images/all";
 	let data = [];
 	
 	onMount(async function() {
-		const response = await fetch(apiURL);
+		const response = await fetch(apiURL, init);
 		data = await response.json();
 	});
 </script>
