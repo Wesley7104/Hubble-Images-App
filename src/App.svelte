@@ -28,7 +28,7 @@
 	
 	onMount(async function() {
 		const response = await fetch(apiURL, options);
-		data = await response.json();
+		data = await response.json()
 	});
 </script>
   
