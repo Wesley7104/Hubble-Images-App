@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from "svelte";
+	import { error } from "console";
+import { onMount } from "svelte";
 	import {
 	  Collapse,
 	  Navbar,
@@ -20,20 +21,19 @@
 	let isOpen = false;
 	const toggle = () => (isOpen = !isOpen);
 	const apiURL = "https://hubblesite.org/api/v3/images/all";
-	let data = [];
+	let data = ([]);
 	const options = {
 		method: 'GET',
 		mode: 'no-cors'
 		};
 	
-	onMount(async () => {
-		fetch(apiURL, options)
-		.then(response => response.json())
-		.then(data => {console.log(data);}).catch(error => {
-			console.log(error);
-			return [];
-		});
-	});
+	async function getHubbleData() {
+		let response = await fetch(apiURL, options);
+		let data = await response.json();
+		return data;
+	}
+	const promise = getHubbleData();
+	
 </script>
   
   <Navbar color="dark" dark>
@@ -54,21 +54,15 @@
  <main>
 	 <Container>
 		 <Row>
-			{#each data as item }
-            <div>
-                <p> {item.name} </p>
-            </div>
-        {/each}
-			<!-- {#each apiData.name as hubbleImageName}
-			<Card class="mb-3">
-				<CardHeader>
-					<CardTitle>{apiData.name}</CardTitle>
-				</CardHeader>
-				<CardBody>
-					<img src="" alt="">
-				</CardBody>
-			</Card>
-			{/each} -->
+		{#await promise}
+			<p>Loading...</p>
+		{:then data}
+			{#each data as item}
+			<p>Image name: {item.name}</p>
+			{/each}
+		{:catch error}
+			<p stlye="color: red">{error.message}</p>
+		{/await}
 		</Row>
 	</Container>
 </main>
