@@ -19,7 +19,7 @@
   
 	let isOpen = false;
 	const toggle = () => (isOpen = !isOpen);
-	const apiURL = "http://hubblesite.org/api/v3/images/all?page=1";
+	const apiURL = "https://hubblesite.org/api/v3/images/all?page=1";
 	let data = [];
 	
 	onMount(async function() {
