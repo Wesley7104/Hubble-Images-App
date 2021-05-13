@@ -21,7 +21,7 @@ import { onMount } from "svelte";
 	let isOpen = false;
 	const toggle = () => (isOpen = !isOpen);
 	const apiURL = "https://hubblesite.org/api/v3/images/all";
-	let data = ([]);
+	let data;
 	const options = {
 		method: 'GET',
 		mode: 'no-cors'
@@ -29,7 +29,7 @@ import { onMount } from "svelte";
 	
 	async function getHubbleData() {
 		let response = await fetch(apiURL, options);
-		let data = await response.json();
+		data = await response.json();
 		return data;
 	}
 	const promise = getHubbleData();
@@ -37,7 +37,7 @@ import { onMount } from "svelte";
 </script>
   
   <Navbar color="dark" dark>
-	<NavbarBrand href="/" class="mr-auto">Hubble Image App</NavbarBrand>
+	<NavbarBrand href="/" class="mr-auto">Hubble Images App</NavbarBrand>
 	<NavbarToggler on:click={toggle} className="mr-2" />
 	<Collapse {isOpen} navbar>
 	  <Nav navbar>
