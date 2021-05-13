@@ -26,9 +26,13 @@
 		mode: 'no-cors'
 		};
 	
-	onMount(async function() {
-		const response = await fetch(apiURL, options);
-		data = await response.json()
+	onMount(async () => {
+		fetch(apiURL, options)
+		.then(response => response.json())
+		.then(data => {console.log(data);}).catch(error => {
+			console.log(error);
+			return [];
+		});
 	});
 </script>
   
