@@ -21,9 +21,13 @@
 	const toggle = () => (isOpen = !isOpen);
 	const apiURL = "https://hubblesite.org/api/v3/images/all";
 	let data = [];
+	const options = {
+		method: 'GET',
+		mode: 'no-cors'
+		};
 	
 	onMount(async function() {
-		const response = await fetch(apiURL, init);
+		const response = await fetch(apiURL, options);
 		data = await response.json();
 	});
 </script>
